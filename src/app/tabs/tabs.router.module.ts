@@ -13,7 +13,7 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../pantry/tab1.module').then(m => m.Tab1PageModule)
+              import('../pantry/pantry.module').then(m => m.PantryModule)
           }
         ]
       },
@@ -23,7 +23,7 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../cellar/tab2.module').then(m => m.Tab2PageModule)
+              import('../cellar/cellar.module').then(m => m.CellarModule)
           }
         ]
       },
@@ -36,7 +36,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/tabs/pantry',
     pathMatch: 'full'
   }
 ];
