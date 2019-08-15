@@ -8,15 +8,12 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CreateNewItemComponent } from './modals/create-new-item/create-new-item.component';
-import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [AppComponent, CreateNewItemComponent],
-  entryComponents: [CreateNewItemComponent],
+  declarations: [AppComponent],
+  entryComponents: [],
   imports: [
     BrowserModule,
-    ReactiveFormsModule,
     IonicModule.forRoot(),
     AppRoutingModule
   ],
