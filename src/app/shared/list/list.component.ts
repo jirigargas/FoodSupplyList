@@ -17,6 +17,8 @@ export class ListComponent {
 
   addCount(item: Item) {
     item.count += 1;
+    
+    this.onSave.emit(item);
   }
 
   substractCount(item: Item) {

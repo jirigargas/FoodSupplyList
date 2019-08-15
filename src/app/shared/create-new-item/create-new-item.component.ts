@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { Item } from 'src/app/shared/item';
+import { Item, ELocation } from 'src/app/shared/item';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UUID } from '../uuid';
 
 @Component({
   selector: 'app-create-new-item',
@@ -25,6 +26,11 @@ export class CreateNewItemComponent implements OnInit {
   ngOnInit() { }
 
   save() {
-    this.modalCtrl.dismiss(<Item>this.form.value)
+    let item = <Item>this.form.value;
+    item.id = UUID.create();
+    item.location = ELocation.Pantry;
+    
+    this.modalCtrl.dismiss(item);
   }
+  
 }

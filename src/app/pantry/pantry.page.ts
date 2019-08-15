@@ -10,11 +10,15 @@ import { ItemStoreService } from '../shared/item-store.service';
 export class PantryPage {
 
   items: Item[];
-  
+
   constructor(private itemStore: ItemStoreService) { }
 
-  ionViewWillEnter(){
-    this.items = this.itemStore.getItemsByLocation(ELocation.Pantry)
+  async ionViewWillEnter() {
+    this.items = await this.itemStore.getItemsByLocation(ELocation.Pantry)
   }
 
+  save(item: Item) {
+    console.log("saving ", item);
+    this.itemStore.save(item);
+  }
 }

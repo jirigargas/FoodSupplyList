@@ -1,4 +1,5 @@
 export class Item {
+    id: string;
     name: string;
     count: number;
     location: ELocation;
@@ -6,5 +7,5 @@ export class Item {
 
 export enum ELocation {
     Pantry = 0,
-    Cellar = 1    
+    Cellar = 1
 }

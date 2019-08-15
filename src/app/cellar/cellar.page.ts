@@ -13,8 +13,13 @@ export class CellarPage {
 
   constructor(private itemStore: ItemStoreService) { }
 
-  ionViewWillEnter() {
-    this.items = this.itemStore.getItemsByLocation(ELocation.Cellar);
+  async ionViewWillEnter() {
+    this.items = await this.itemStore.getItemsByLocation(ELocation.Cellar);
+  }
+
+  save(item: Item) {
+    console.log("saving ", item);
+    this.itemStore.save(item);
   }
 
 }
