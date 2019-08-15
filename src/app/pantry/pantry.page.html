@@ -7,6 +7,7 @@
 </ion-header>
 
 <ion-content>
+
   <ion-list>
     <ion-item-sliding *ngFor="let item of items">
       <ion-item-options side="start">
@@ -14,10 +15,8 @@
       </ion-item-options>
 
       <ion-item>
-        <ion-label>
-          {{item.name}}
-          <p>{{item.count}}x</p>
-        </ion-label>
+        <ion-label>{{item.name}}</ion-label>
+        <ion-badge slot="end" color="primary">{{item.count}}</ion-badge>
       </ion-item>
 
       <ion-item-options side="end">
@@ -26,5 +25,10 @@
     </ion-item-sliding>
   </ion-list>
 
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addNewItem()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
 </ion-content>

@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Item } from '../models/item';
+import { ModalController } from '@ionic/angular';
+import { CreateNewItemComponent } from '../modals/create-new-item/create-new-item.component';
 
 @Component({
   selector: 'app-pantry',
@@ -10,7 +12,7 @@ export class PantryPage {
 
   items: Item[]
 
-  constructor() { }
+  constructor(private modalCtrl: ModalController) { }
 
   ionViewWillEnter(): void {
     // TODO load items from db
@@ -32,6 +34,24 @@ export class PantryPage {
     } else {
       this.items = this.items.filter(x => x.name !== item.name);
       // TODO remove item from db
+    }
+  }
+
+  async addNewItem() {
+    const modal = await this.modalCtrl.create({
+      component: CreateNewItemComponent
+    });
+
+    await modal.present();
+    const { data } = await modal.onWillDismiss();
+
+    var existingItem = this.items.find(x => x.name === data.name);
+    if (existingItem) {
+      existingItem.count += data.count;
+      // TODO update existing item
+    } else {
+      this.items.push(<Item>data);
+      // TODO insert new item to database
     }
   }
 }
