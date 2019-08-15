@@ -1,4 +1,7 @@
-<p>
-  create-new-item works!
-</p>
-<button (click)="save()">Save</button>
+<form [formGroup]="form" (ngSubmit)="save()">
+
+  <ion-input formControlName="name"></ion-input>
+  <ion-input formControlName="count" type="number"></ion-input>
+
+  <button type="submit" [disabled]="!form.valid">Create item</button>
+</form>

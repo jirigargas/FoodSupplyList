@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Item } from 'src/app/models/item';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-create-new-item',
@@ -9,11 +10,21 @@ import { Item } from 'src/app/models/item';
 })
 export class CreateNewItemComponent implements OnInit {
 
-  constructor(private modalCtrl: ModalController) { }
+  form: FormGroup;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private modalCtrl: ModalController
+  ) {
+    this.form = this.formBuilder.group({
+      name: new FormControl('', Validators.required),
+      count: new FormControl(1, Validators.min(1))
+    })
+  }
 
   ngOnInit() { }
 
   save() {
-    this.modalCtrl.dismiss(<Item>{ name: "item4", count: 1 })
+    this.modalCtrl.dismiss(<Item>this.form.value)
   }
 }
