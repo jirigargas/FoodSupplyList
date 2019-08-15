@@ -16,11 +16,11 @@ export class ItemStoreService {
     return items.filter(x => x.location == location);
   }
 
-  public async getItemsByName(name: string): Promise<Item[]> {
+  public async getItemsByNameAndLocation(name: string, location: ELocation): Promise<Item[]> {
     var items = await this.storage.get("items");
     if(!items) return [];
 
-    return items.filter(x => x.name === name);
+    return items.filter(x => x.name === name && x.location === location);
   }
 
   public async save(item: Item): Promise<void> {

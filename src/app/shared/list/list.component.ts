@@ -12,23 +12,28 @@ export class ListComponent {
 
   @Input() items: Item[];
   @Output() onSave: EventEmitter<Item> = new EventEmitter();
+  @Output() onChangeLocation: EventEmitter<Item> = new EventEmitter();
 
   constructor(private modalCtrl: ModalController) { }
 
   addCount(item: Item) {
     item.count += 1;
-    
+
     this.onSave.emit(item);
   }
 
   substractCount(item: Item) {
-    if (item.count !== 1) {
+    if (item.count !== 0) {
       item.count -= 1;
-    } else {
-      this.items = this.items.filter(x => x.name !== item.name);
     }
 
     this.onSave.emit(item);
+  }
+
+  changeLocation(item: Item) {
+    if (item.count === 0) return;
+    this.substractCount(item);
+    this.onChangeLocation.emit(item);
   }
 
   async addNewItem() {

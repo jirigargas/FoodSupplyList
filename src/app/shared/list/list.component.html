@@ -1,17 +1,22 @@
 <ion-list>
   <ion-item-sliding *ngFor="let item of items">
     <ion-item-options side="start">
-      <ion-item-option (click)="substractCount(item)" color="secondary" class="changeCountItem">-</ion-item-option>
+      <ion-item-option (click)="addCount(item)" color="primary" class="changeCountItem">
+        <ion-icon name="add"></ion-icon>
+      </ion-item-option>
+      <ion-item-option (click)="substractCount(item)" color="secondary" class="changeCountItem">
+        <ion-icon name="remove"></ion-icon>
+      </ion-item-option>
+      <ion-item-option (click)="changeLocation(item)" color="dark" class="changeCountItem">
+        <ion-icon name="send"></ion-icon>
+      </ion-item-option>
     </ion-item-options>
 
     <ion-item>
+      <ion-badge slot="start" color="primary">{{item.count}}</ion-badge>
       <ion-label>{{item.name}}</ion-label>
-      <ion-badge slot="end" color="primary">{{item.count}}</ion-badge>
     </ion-item>
 
-    <ion-item-options side="end">
-      <ion-item-option (click)="addCount(item)" color="primary" class="changeCountItem">+</ion-item-option>
-    </ion-item-options>
   </ion-item-sliding>
 </ion-list>
 
