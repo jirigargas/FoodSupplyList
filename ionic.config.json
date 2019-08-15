@@ -1,0 +1,7 @@
+{
+  "name": "FoodSupplyList",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
