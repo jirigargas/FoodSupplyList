@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ELocation, Item } from '../shared/item';
+import { ItemStoreService } from '../shared/item-store.service';
 
 @Component({
   selector: 'app-cellar',
@@ -7,6 +9,12 @@ import { Component } from '@angular/core';
 })
 export class CellarPage {
 
-  constructor() {}
+  items: Item[];
+
+  constructor(private itemStore: ItemStoreService) { }
+
+  ionViewWillEnter() {
+    this.items = this.itemStore.getItemsByLocation(ELocation.Cellar);
+  }
 
 }

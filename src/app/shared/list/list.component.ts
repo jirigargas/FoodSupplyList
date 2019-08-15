@@ -1,27 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Item } from '../item';
+import { CreateNewItemComponent } from '../create-new-item/create-new-item.component';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
 })
-export class ListComponent implements OnInit {
+export class ListComponent {
 
-  items: Item[];
+  @Input() items: Item[];
+  @Output() onSave: EventEmitter<Item> = new EventEmitter();
 
   constructor(private modalCtrl: ModalController) { }
-  
-  ngOnInit(): void {
-    // TODO load items from db
-    this.items = [
-      { name: 'item1', count: 2 },
-      { name: 'item2', count: 4 },
-      { name: 'item3 with long realy name', count: 1 }
-    ]
-  }
- 
+
   addCount(item: Item) {
     item.count += 1;
   }
@@ -29,11 +22,11 @@ export class ListComponent implements OnInit {
   substractCount(item: Item) {
     if (item.count !== 1) {
       item.count -= 1;
-      // TODO save new item state
     } else {
       this.items = this.items.filter(x => x.name !== item.name);
-      // TODO remove item from db
     }
+
+    this.onSave.emit(item);
   }
 
   async addNewItem() {
@@ -47,10 +40,11 @@ export class ListComponent implements OnInit {
     var existingItem = this.items.find(x => x.name === data.name);
     if (existingItem) {
       existingItem.count += data.count;
-      // TODO update existing item
+      this.onSave.emit(existingItem);
     } else {
-      this.items.push(<Item>data);
-      // TODO insert new item to database
+      const newItem = <Item>data;
+      this.items.push(newItem);
+      this.onSave.emit(newItem);
     }
   }
 
