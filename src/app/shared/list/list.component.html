@@ -4,7 +4,7 @@
       <ion-item-option (click)="addCount(item)" color="primary" class="changeCountItem" disabled="{{interactionDisabled}}">
         <ion-icon name="add"></ion-icon>
       </ion-item-option>
-      <ion-item-option (click)="substractCount(item)" color="secondary" class="changeCountItem" disabled="{{interactionDisabled}}">
+      <ion-item-option (click)="substractCount(item)" color="tertiary" class="changeCountItem" disabled="{{interactionDisabled}}">
         <ion-icon name="remove"></ion-icon>
       </ion-item-option>
       <ion-item-option (click)="changeLocation(item)" color="dark" class="changeCountItem" disabled="{{interactionDisabled}}">
@@ -13,9 +13,15 @@
     </ion-item-options>
 
     <ion-item>
-      <ion-badge slot="start" color="primary">{{item.count}}</ion-badge>
+      <ion-badge slot="start" [color]="getColor(item.count)">{{item.count}}</ion-badge>
       <ion-label>{{item.name}}</ion-label>
     </ion-item>
+
+    <ion-item-options side="end">
+      <ion-item-option (click)="delete(item)" color="danger" class="changeCountItem" disabled="{{interactionDisabled}}">
+        <ion-icon name="trash"></ion-icon>
+      </ion-item-option>
+    </ion-item-options>
 
   </ion-item-sliding>
 </ion-list>

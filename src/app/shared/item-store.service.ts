@@ -7,6 +7,7 @@ import { Storage } from '@ionic/storage';
 })
 export class ItemStoreService {
 
+
   constructor(private storage: Storage) { }
 
   public async getItemsByLocation(location: ELocation): Promise<Item[]> {
@@ -29,7 +30,14 @@ export class ItemStoreService {
     
     var newItems = items.filter(x => x.id !== item.id);
     newItems.push(item);
-    this.storage.set("items", newItems);
+    await this.storage.set("items", newItems);
+  }
+
+  public async remove(item: Item): Promise<void> {
+    var items = <Item[]>await this.storage.get("items");
+    if(!items) return;
+
+    await this.storage.set("items", items.filter(x=>x.id !== item.id));    
   }
 
 }

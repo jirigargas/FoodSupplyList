@@ -78,6 +78,16 @@ export class ListComponent {
     this.interactionDisabled = false;
   }
 
+  async delete(item: Item): Promise<void> {
+    if (this.interactionDisabled) return;
+    this.interactionDisabled = true;
+
+    this.items = this.items.filter(x => x.id !== item.id);
+    this.itemStore.remove(item);
+
+    this.interactionDisabled = false;
+  }
+
   async addNewItem(): Promise<void> {
     if (this.interactionDisabled) return;
     this.interactionDisabled = true;
@@ -102,5 +112,17 @@ export class ListComponent {
     }
 
     this.interactionDisabled = false;
+  }
+
+  getColor(count: number) {
+    if (count === 0) {
+      return "light";
+    } else if (count < 3) {
+      return "danger";
+    } else if (count < 5) {
+      return "warning"
+    } else {
+      return "primary"
+    }
   }
 }
