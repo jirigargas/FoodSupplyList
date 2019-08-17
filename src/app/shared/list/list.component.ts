@@ -93,24 +93,29 @@ export class ListComponent {
     this.interactionDisabled = true;
 
     const modal = await this.modalCtrl.create({
-      component: CreateNewItemComponent
+      component: CreateNewItemComponent,
+      componentProps: {
+        location: this.viewItemLocation
+      }
     });
 
     await modal.present();
     const { data } = await modal.onWillDismiss();
 
-    var existingItem = this.items.find(x => x.name === data.name);
+    if (data) {
+      var existingItem = this.items.find(x => x.name === data.name);
 
-    this.interactionDisabled = true;
-    if (existingItem) {
-      existingItem.count += data.count;
-      await this.itemStore.save(existingItem);
-    } else {
-      const newItem = <Item>data;
-      this.items.push(newItem);
-      await this.itemStore.save(newItem);
+      this.interactionDisabled = true;
+      if (existingItem) {
+        existingItem.count += data.count;
+        await this.itemStore.save(existingItem);
+      } else {
+        const newItem = <Item>data;
+        this.items.push(newItem);
+        await this.itemStore.save(newItem);
+      }
     }
-
+    
     this.interactionDisabled = false;
   }
 

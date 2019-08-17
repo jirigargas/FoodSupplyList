@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Item, ELocation } from 'src/app/shared/item';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -12,6 +12,8 @@ import { UUID } from '../uuid';
 export class CreateNewItemComponent implements OnInit {
 
   form: FormGroup;
+
+  @Input() location: ELocation;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -28,9 +30,13 @@ export class CreateNewItemComponent implements OnInit {
   save() {
     let item = <Item>this.form.value;
     item.id = UUID.create();
-    item.location = ELocation.Pantry;
+    item.location = this.location;
     
     this.modalCtrl.dismiss(item);
+  }
+
+  close() {
+    this.modalCtrl.dismiss();
   }
   
 }

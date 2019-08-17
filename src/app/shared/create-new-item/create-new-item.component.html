@@ -1,6 +1,6 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>
+  <ion-toolbar color="secondary">
+    <ion-title color="dark">
       Create new item
     </ion-title>
   </ion-toolbar>
@@ -17,7 +17,8 @@
       <ion-input formControlName="count" type="number"></ion-input>
     </ion-item>
 
-    <ion-button type="submit" expand="full" [disabled]="!form.valid">Create item</ion-button>
+    <ion-button type="submit" expand="full" [disabled]="!form.valid" class="actionButton">Create item</ion-button>
+    <ion-button color="light" expand="full" (click)="close()" class="actionButton">Cancel</ion-button>
   </form>
 
 
