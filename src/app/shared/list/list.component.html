@@ -1,13 +1,13 @@
 <ion-list>
   <ion-item-sliding *ngFor="let item of items">
     <ion-item-options side="start">
-      <ion-item-option (click)="addCount(item)" color="primary" class="changeCountItem">
+      <ion-item-option (click)="addCount(item)" color="primary" class="changeCountItem" disabled="{{interactionDisabled}}">
         <ion-icon name="add"></ion-icon>
       </ion-item-option>
-      <ion-item-option (click)="substractCount(item)" color="secondary" class="changeCountItem">
+      <ion-item-option (click)="substractCount(item)" color="secondary" class="changeCountItem" disabled="{{interactionDisabled}}">
         <ion-icon name="remove"></ion-icon>
       </ion-item-option>
-      <ion-item-option (click)="changeLocation(item)" color="dark" class="changeCountItem">
+      <ion-item-option (click)="changeLocation(item)" color="dark" class="changeCountItem" disabled="{{interactionDisabled}}">
         <ion-icon name="send"></ion-icon>
       </ion-item-option>
     </ion-item-options>

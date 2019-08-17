@@ -8,6 +8,6 @@
 
 <ion-content>
 
-  <app-list [items]="items" (onSave)="save($event)" (onChangeLocation)="changeLocation($event)"></app-list>
+  <app-list #list [viewItemLocation]="viewItemLocation"></app-list>
 
 </ion-content>

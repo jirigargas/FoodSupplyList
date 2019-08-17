@@ -1,7 +1,9 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { Item } from '../item';
+import { Item, ELocation } from '../item';
 import { CreateNewItemComponent } from '../create-new-item/create-new-item.component';
+import { ItemStoreService } from '../item-store.service';
+import { UUID } from '../uuid';
 
 @Component({
   selector: 'app-list',
@@ -10,33 +12,76 @@ import { CreateNewItemComponent } from '../create-new-item/create-new-item.compo
 })
 export class ListComponent {
 
-  @Input() items: Item[];
-  @Output() onSave: EventEmitter<Item> = new EventEmitter();
-  @Output() onChangeLocation: EventEmitter<Item> = new EventEmitter();
+  @Input() viewItemLocation: ELocation;
 
-  constructor(private modalCtrl: ModalController) { }
+  items: Item[];
+  interactionDisabled: boolean = false;
 
-  addCount(item: Item) {
-    item.count += 1;
+  constructor(
+    private itemStore: ItemStoreService,
+    private modalCtrl: ModalController
+  ) { }
 
-    this.onSave.emit(item);
+  async init(): Promise<void> {
+    this.items = await this.itemStore.getItemsByLocation(this.viewItemLocation);
   }
 
-  substractCount(item: Item) {
+  async addCount(item: Item): Promise<void> {
+    if (this.interactionDisabled) return;
+    this.interactionDisabled = true;
+
+    item.count += 1;
+    await this.itemStore.save(item);
+
+    this.interactionDisabled = false;
+  }
+
+  async substractCount(item: Item): Promise<void> {
+    if (this.interactionDisabled) return;
+    this.interactionDisabled = true;
+
     if (item.count !== 0) {
       item.count -= 1;
     }
 
-    this.onSave.emit(item);
+    await this.itemStore.save(item);
+
+    this.interactionDisabled = false;
   }
 
-  changeLocation(item: Item) {
+  async changeLocation(item: Item): Promise<void> {
     if (item.count === 0) return;
-    this.substractCount(item);
-    this.onChangeLocation.emit(item);
+    if (this.interactionDisabled) return;
+    this.interactionDisabled = true;
+
+    if (item.count !== 0) {
+      item.count -= 1;
+      await this.itemStore.save(item);
+      var opositeLocation = item.location === ELocation.Cellar ? ELocation.Pantry : ELocation.Cellar;
+      var items = await this.itemStore.getItemsByNameAndLocation(item.name, opositeLocation);
+
+      if (items.length === 1) {
+        var opositeItem = items[0];
+        opositeItem.count += 1;
+        this.itemStore.save(opositeItem);
+      } else {
+        var newItem = <Item>{
+          id: UUID.create(),
+          name: item.name,
+          count: 1,
+          location: opositeLocation
+        }
+        this.itemStore.save(newItem);
+      }
+    }
+
+    this.interactionDisabled = false;
   }
 
-  async addNewItem() {
+  async addNewItem(): Promise<void> {
+    if (this.interactionDisabled) return;
+    this.interactionDisabled = true;
+
     const modal = await this.modalCtrl.create({
       component: CreateNewItemComponent
     });
@@ -45,14 +90,17 @@ export class ListComponent {
     const { data } = await modal.onWillDismiss();
 
     var existingItem = this.items.find(x => x.name === data.name);
+
+    this.interactionDisabled = true;
     if (existingItem) {
       existingItem.count += data.count;
-      this.onSave.emit(existingItem);
+      await this.itemStore.save(existingItem);
     } else {
       const newItem = <Item>data;
       this.items.push(newItem);
-      this.onSave.emit(newItem);
+      await this.itemStore.save(newItem);
     }
-  }
 
+    this.interactionDisabled = false;
+  }
 }
