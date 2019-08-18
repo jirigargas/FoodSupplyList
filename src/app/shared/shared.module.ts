@@ -4,6 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { ListComponent } from './list/list.component';
 import { CreateNewItemComponent } from './create-new-item/create-new-item.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [ListComponent, CreateNewItemComponent],
@@ -11,7 +12,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     IonicModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,    
+    TranslateModule.forChild()
   ],
   exports: [ListComponent,CreateNewItemComponent]
 })

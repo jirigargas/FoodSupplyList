@@ -1,4 +1,9 @@
 {
     "PANTRY": "Pantry",
-    "CELLAR": "Cellar"
+    "CELLAR": "Cellar",
+    "CREATE_ITEM": "Create new item",
+    "NAME": "Name",
+    "COUNT": "Count",
+    "CREATE_ITEM_BTN": "Create item",
+    "CANCEL_BTN": "Cancel"
 }

@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar color="secondary">
     <ion-title color="dark">
-      Create new item
+      {{ 'CREATE_ITEM' | translate }}
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,16 +9,20 @@
 <ion-content>
   <form [formGroup]="form" (ngSubmit)="save()">
     <ion-item>
-      <ion-label position="floating">Name</ion-label>
+      <ion-label position="floating">{{ 'NAME' | translate }}</ion-label>
       <ion-input formControlName="name"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">Count</ion-label>
+      <ion-label position="floating">{{ 'COUNT' | translate }}</ion-label>
       <ion-input formControlName="count" type="number"></ion-input>
     </ion-item>
 
-    <ion-button type="submit" expand="full" [disabled]="!form.valid" class="actionButton">Create item</ion-button>
-    <ion-button color="light" expand="full" (click)="close()" class="actionButton">Cancel</ion-button>
+    <ion-button type="submit" expand="full" [disabled]="!form.valid" class="actionButton">
+      {{'CREATE_ITEM_BTN' | translate}}
+    </ion-button>
+    <ion-button color="light" expand="full" (click)="close()" class="actionButton">
+      {{'CANCEL_BTN' | translate}}
+    </ion-button>
   </form>
 
 

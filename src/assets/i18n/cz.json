@@ -1,4 +1,9 @@
 {
     "PANTRY": "Spíž",
-    "CELLAR": "Sklep"
+    "CELLAR": "Sklep",
+    "CREATE_ITEM": "Vytvoř nový záznam",
+    "NAME": "Název",
+    "COUNT": "Počet",
+    "CREATE_ITEM_BTN": "Vytvoř záznam",
+    "CANCEL_BTN": "Zpět"
 }
