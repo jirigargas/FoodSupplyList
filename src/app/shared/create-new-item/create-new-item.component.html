@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title color="dark">
+      {{ 'CREATE_ITEM' | translate }}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <ion-item>
+      <ion-label position="floating">{{ 'NAME' | translate }}</ion-label>
+      <ion-input formControlName="name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">{{ 'COUNT' | translate }}</ion-label>
+      <ion-input formControlName="count" type="number"></ion-input>
+    </ion-item>
+
+    <ion-button type="submit" expand="full" [disabled]="!form.valid" class="actionButton">
+      {{'CREATE_ITEM_BTN' | translate}}
+    </ion-button>
+    <ion-button color="light" expand="full" (click)="close()" class="actionButton">
+      {{'CANCEL_BTN' | translate}}
+    </ion-button>
+  </form>
+
+
+</ion-content>
